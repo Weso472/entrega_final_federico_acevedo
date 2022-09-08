@@ -7,7 +7,17 @@
         <div class="row gx-4 gx-lg-5">
             <div class="col-lg-6">
                 <h1 class="mt-5">VIDEOJUEGOS</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt voluptates rerum eveniet sapiente repellat esse, doloremque quod recusandae deleniti nostrum assumenda vel beatae sed aut modi nesciunt porro quisquam voluptatem.</p>
+                    
+                <a href="{% url 'crear-videojuego' %}">Nuevo videojuego</a>
+                <br><br><br>
+
+                {% for videojuego in videojuegos %}
+                <p><b>Nombre:</b> {{ videojuego.nombre }}</p>
+                <p><b>Genero:</b> {{ videojuego.genero }}</p>
+                <p><b>Fecha de lanzamiento:</b> {{ videojuego.lanzamiento }}</p>
+                <p><b>Compañia:</b> {{ videojuego.compañia }} </p>
+                <br><br><br>
+                {% endfor %}
             </div>
         </div>
     </div>

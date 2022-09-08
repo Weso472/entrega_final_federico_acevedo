@@ -26,7 +26,7 @@ class videojuego(models.Model):
     nombre = models.CharField(max_length=30, null = True)
     genero = models.CharField(max_length=30, null = True)
     lanzamiento = models.DateField()
-    compania = models.CharField(max_length=30, null = True)
+    compañia = models.CharField(max_length=30, null = True)
 
     def __str__(self):
-        return f'{self.nombre}, {self.genero}, {self.lanzamiento}, {self.compania}'
+        return f'{self.nombre}, {self.genero}, {self.lanzamiento}, {self.compañia}'
