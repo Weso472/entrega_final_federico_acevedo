@@ -1,0 +1,110 @@
+{% extends "app_entregafinal/plantilla_base.html" %}
+
+{% block style_block %}
+
+
+<!-- Page content-->
+<div class="container-fluid">
+    <h1 class="mt-4">Mis publicaciones</h1>
+    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
+    <p>
+        Make sure to keep all page content within the
+        <code>#page-content-wrapper</code>
+        . The top navbar is optional, and just for demonstration. Just create an element with the
+        <code>#sidebarToggle</code>
+        ID which will toggle the menu when clicked.
+    </p>
+</div>
+
+        
+<div class="album py-5">
+    <div class="container">
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'nueva-pelicula' %}">Nueva pelicula</a>
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-publicacion' %}">Editar publicación</a>
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-publicacion' %}">Eliminar publicación</a>
+    
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for pelicula in peliculas %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+            <div class="card-body">
+              <b>Nombre:</b> {{pelicula.nombre}}
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>    
+</div>
+
+<div class="album py-5">
+    <div class="container">
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="">Nueva publicación</a>
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-publicacion' %}">Editar publicación</a>
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-publicacion' %}">Eliminar publicación</a>
+    
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for videojuego in videojuegos %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>    
+</div>
+
+<div class="album py-5">
+    <div class="container">
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="">Nueva publicación</a>
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-publicacion' %}">Editar publicación</a>
+    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-publicacion' %}">Eliminar publicación</a>
+    
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for album in albums %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>    
+</div>    
+    
+
+
+
+{% endblock style_block %}

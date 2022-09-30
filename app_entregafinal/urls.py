@@ -4,9 +4,15 @@ from app_entregafinal import views
 
 
 urlpatterns = [
-    path('', views.inicio, name = "inicio"), #esta era nuestra primer view
-    path('busqueda', views.buscar, name= "busqueda"),
+    path('inicio/', views.inicio, name = "inicio"),
+    path('about/', views.about, name= "about"),
+
+    path('mis-publicaciones/', views.mis_publicaciones, name= "mis-publicaciones"),
+    path('eliminar-publicación/', views.eliminar_publicacion, name= "eliminar-publicacion"),
+    path('editar-publicación/', views.editar_publicacion, name= "editar-publicacion"),
     
+    path('nueva-pelicula/', views.crear_pelicula, name = "nueva-pelicula"),
+
     path('peliculas/', views.peliculas, name = "peliculas"),
     path('crear-pelicula/', views.crear_pelicula, name="crear-pelicula"),
     

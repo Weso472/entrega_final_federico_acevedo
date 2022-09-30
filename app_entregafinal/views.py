@@ -10,12 +10,26 @@ from app_entregafinal.forms import formulario_pelicula, formulario_musica, formu
 
 
 
-# Create your views here.
-
-
 def inicio(request):
 
       return render(request, "app_entregafinal/inicio.html")
+
+def about(request):
+      return render(request, "app_entregafinal/about.html")
+
+
+
+def mis_publicaciones(request):
+      peliculas = pelicula.objects.all()
+      videojuegos = videojuego.objects.all()
+      albums = album_musica.objects.all()
+      return render(request, "app_entregafinal/mis_publicaciones.html", {'peliculas': peliculas,'videojuegos': videojuegos,'albums': albums})
+
+def eliminar_publicacion(request):
+      return render(request, "app_entregafinal/eliminar_publicacion.html")
+
+def editar_publicacion(request):
+      return render(request, "app_entregafinal/editar_publicacion.html")
 
 
 
@@ -36,6 +50,11 @@ def crear_pelicula(request):
         formulario = formulario_pelicula()  # Formulario vacio para construir el html
     return render(request, "app_entregafinal/formulario_pelicula.html", {"formulario": formulario})
 
+def eliminar_pelicula(request, id):
+    pelicula = pelicula.objects.get(id=id)
+    pelicula.delete()
+
+    return redirect('nombrepagina/peliculas/')
 
 
 def discos(request):
@@ -73,15 +92,4 @@ def crear_videojuego(request):
     else:  # GET
         formulario = formulario_videojuego()  # Formulario vacio para construir el html
     return render(request, "app_entregafinal/formulario_videojuego.html", {"formulario": formulario})
-
-def buscar(request):
-    if request.GET["nombre"]:
-        nombre = request.GET["nombre"]
-        discos = album_musica.objects.filter(nombre__icontains=nombre)
-        peliculas = pelicula.objects.filter(nombre__icontains=nombre)
-        videojuegos = videojuego.objects.filter(nombre__icontains=nombre)
-
-        return render(request, "app_entregafinal/busqueda.html", {'discos': discos}, {'peliculas': peliculas}, {'videojuegos': videojuegos})
-    else:
-        return render(request, "app_entregafinal/busqueda.html", {'discos': []}, {'peliculas': []}, {'videojuegos': []})
 
