@@ -8,10 +8,12 @@ urlpatterns = [
     path('about/', views.about, name= "about"),
 
     path('mis-publicaciones/', views.mis_publicaciones, name= "mis-publicaciones"),
-    path('eliminar-publicación/', views.eliminar_publicacion, name= "eliminar-publicacion"),
-    path('editar-publicación/', views.editar_publicacion, name= "editar-publicacion"),
     
+    path('eliminar-pelicula/<int:id>/', views.eliminar_pelicula, name= "eliminar-pelicula"),
+    path('editar-pelicula/<int:id>/', views.editar_pelicula, name= "editar-pelicula"),
     path('nueva-pelicula/', views.crear_pelicula, name = "nueva-pelicula"),
+    
+
 
     path('peliculas/', views.peliculas, name = "peliculas"),
     path('crear-pelicula/', views.crear_pelicula, name="crear-pelicula"),

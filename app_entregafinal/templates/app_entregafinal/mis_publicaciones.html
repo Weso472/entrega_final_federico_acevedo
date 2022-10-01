@@ -16,12 +16,15 @@
     </p>
 </div>
 
+<!-- Falta agregar que diga "borrado con exito"
+{% if borrado %}
+<div class="eliminado">Pelicula borrada exitosamente</div>
+{% endif %}
+-->
         
 <div class="album py-5">
     <div class="container">
     <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'nueva-pelicula' %}">Nueva pelicula</a>
-    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-publicacion' %}">Editar publicación</a>
-    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-publicacion' %}">Eliminar publicación</a>
     
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for pelicula in peliculas %}
@@ -35,7 +38,8 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-pelicula' pelicula.id %}">Editar</a>
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-pelicula' pelicula.id %}">Eliminar</a>
                 </div>
               </div>
             </div>
@@ -49,8 +53,6 @@
 <div class="album py-5">
     <div class="container">
     <a type="button" class="btn btn-sm btn-outline-secondary" href="">Nueva publicación</a>
-    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-publicacion' %}">Editar publicación</a>
-    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-publicacion' %}">Eliminar publicación</a>
     
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for videojuego in videojuegos %}
@@ -78,8 +80,6 @@
 <div class="album py-5">
     <div class="container">
     <a type="button" class="btn btn-sm btn-outline-secondary" href="">Nueva publicación</a>
-    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-publicacion' %}">Editar publicación</a>
-    <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-publicacion' %}">Eliminar publicación</a>
     
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for album in albums %}
