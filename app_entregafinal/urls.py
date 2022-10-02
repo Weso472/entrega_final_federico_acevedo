@@ -9,18 +9,16 @@ urlpatterns = [
 
     path('mis-publicaciones/', views.mis_publicaciones, name= "mis-publicaciones"),
     
-    path('eliminar-pelicula/<int:id>/', views.eliminar_pelicula, name= "eliminar-pelicula"),
-    path('editar-pelicula/<int:id>/', views.editar_pelicula, name= "editar-pelicula"),
-    path('nueva-pelicula/', views.crear_pelicula, name = "nueva-pelicula"),
+
+    path('pelicula/', views.PeliculaListView.as_view(), name="peliculas"),
+    path('nueva-pelicula/', views.PeliculaCreateView.as_view(), name="nueva-pelicula"),
+    path('editar-pelicula/<int:pk>/', views.PeliculaUpdateView.as_view(), name="editar-pelicula"),
+    path('eliminar-pelicula/<int:pk>/', views.PeliculaDeleteView.as_view(), name="eliminar-pelicula"),
     
 
-
-    path('peliculas/', views.peliculas, name = "peliculas"),
-    path('crear-pelicula/', views.crear_pelicula, name="crear-pelicula"),
-    
     
     path('musica/', views.discos, name = "musica"),
-    path('crear-musica/', views.crear_pelicula, name="crear-musica"),
+    path('crear-musica/', views.crear_disco, name="crear-musica"),
 
 
     path('videojuegos/', views.videojuegos, name = "videojuegos"),

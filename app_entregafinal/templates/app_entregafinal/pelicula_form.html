@@ -5,7 +5,7 @@
 <div class="container px-4 px-lg-5">
     <form method="post">
         {% csrf_token %}
-        {{ formulario.as_p }}
+        {{ form.as_p }}
         <input type="submit" value="Enviar" />
     </form>
 </div>       

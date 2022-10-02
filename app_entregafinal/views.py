@@ -37,61 +37,27 @@ def editar_publicacion(request):
 
 
 
-def peliculas(request):
-    peliculas = pelicula.objects.all()
-    contexto = {'peliculas': peliculas}
-#    borrado = request.GET.get('borrado', None)     #Falta agregar que diga "borrado con exito"
-#    contexto['borrado'] = borrado
-    return render(request, "app_entregafinal/pelicula.html", contexto)
+class PeliculaListView(ListView):
+    model = pelicula
+    template_name = 'AppCoder/pelicula.html'
 
-def crear_pelicula(request):
-    if request.method == 'POST':
-        formulario = formulario_pelicula(request.POST)
-        
-        if formulario.is_valid():
-            data = formulario.cleaned_data
-            Pelicula = pelicula(nombre=data['nombre'], genero=data['genero'], estreno=data['estreno'], director=data['director'])
-            Pelicula.save()
-            url_final = f"{reverse('mis-publicaciones')}?creadopelicula"
-            return redirect(url_final)
-    else:
-        formulario = formulario_pelicula()  # Formulario vacio para construir el html
-    return render(request, "app_entregafinal/formulario_pelicula.html", {"formulario": formulario})
 
-def editar_pelicula(request, id):
-    pelicula_id = pelicula.objects.get(id = id)
-    
-    if request.method == 'POST':
-        formulario = formulario_pelicula(request.POST)
+class PeliculaCreateView(CreateView):
+    model = pelicula
+    fields = ['nombre', 'genero', 'estreno', 'director']
+    success_url = reverse_lazy('mis-publicaciones')
 
-        if formulario.is_valid():
-            data = formulario.cleaned_data
 
-            pelicula_id.nombre = data['nombre']
-            pelicula_id.genero = data['genero']
-            pelicula_id.estreno = data['estreno']
-            pelicula_id.director = data['director']
+class PeliculaUpdateView(UpdateView):
+    model = pelicula
+    fields = ['nombre', 'genero', 'estreno', 'director']
+    success_url = reverse_lazy('mis-publicaciones')
 
-            pelicula_id.save()
 
-            url_final = f"{reverse('mis-publicaciones')}?editadopelicula"
-            return redirect(url_final)
-    else:  # GET
-        inicial = {
-            'nombre': pelicula_id.nombre,
-            'genero': pelicula_id.genero,
-            'estreno': pelicula_id.estreno,
-            'director': pelicula_id.director,
-        }
-        formulario = formulario_pelicula(initial=inicial)
-    return render(request, "app_entregafinal/formulario_pelicula.html", {"formulario": formulario})
+class PeliculaDeleteView(DeleteView):
+    model = pelicula
+    success_url = reverse_lazy('mis-publicaciones')
 
-def eliminar_pelicula(request, id):
-    pelicula_id = pelicula.objects.get(id = id)
-    borrado_id = pelicula_id.id
-    pelicula_id.delete()
-    url_final = f"{reverse('mis-publicaciones')}?borradopelicula={borrado_id}"
-    return redirect(url_final)
 
 
 
