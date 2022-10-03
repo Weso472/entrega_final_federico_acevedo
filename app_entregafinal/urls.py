@@ -6,6 +6,11 @@ from app_entregafinal import views
 urlpatterns = [
     path('inicio/', views.inicio, name = "inicio"),
     path('about/', views.about, name= "about"),
+    
+    path('register/', views.register, name = 'register'),
+    path('login/', views.login_request, name = 'login'),
+    path('logout/', views.CustomLogoutView.as_view(), name = 'logout'),
+    path('opciones/', views.ProfileUpdateView.as_view(), name="opciones"),
 
     path('mis-publicaciones/', views.mis_publicaciones, name= "mis-publicaciones"),
     

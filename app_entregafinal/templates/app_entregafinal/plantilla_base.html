@@ -24,8 +24,10 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'peliculas' %}">Películas</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'musica' %}">Música</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'videojuegos' %}">Videojuegos</a>
+                    {% if user.is_authenticated %}
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Enviar mensaje</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'mis-publicaciones' %}">Mis publicaciones</a>
+                    {% endif %}
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>
             </div>
@@ -34,29 +36,35 @@
                 <!-- Top navigation-->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
+                        <button class="btn btn-primary" id="sidebarToggle">Catálogo</button>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        {% if mensaje %}
+                        <div>{{mensaje}}</div>
+                        {% endif %}
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                 <li class="nav-item active"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Registrarse</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Iniciar sesión</a></li>
+                                {% if user.is_authenticated %}
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="#!">Perfil</a>
-                                        <a class="dropdown-item" href="#!">Opciones</a>
-                                        <a class="dropdown-item" href="#!">Cerrar sesión</a>
+                                        <a class="dropdown-item" href="{% url 'opciones' %}">Opciones</a>
+                                        <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{% url 'about' %}">About</a>
                                     </div>
                                 </li>
+                                {% else %}
+                                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Registrarse</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
                 </nav>
                 <!-- Page content-->
-                
+
                 {% block style_block %}
                 {% endblock style_block %}
                 
