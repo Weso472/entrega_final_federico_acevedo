@@ -6,9 +6,11 @@ class pelicula(models.Model):
     genero = models.CharField(max_length=30, null = True)
     estreno = models.DateField()
     director = models.CharField(max_length=30, null = True)
+    portada = models.ImageField(upload_to='portadas', null = True, blank = True)
+    usuario = models.CharField(max_length=30, null = True)
 
     def __str__(self):
-        return f'{self.nombre}, {self.genero}, {self.estreno}, {self.director}'
+        return f'{self.nombre}, {self.genero}, {self.estreno}, {self.director}, {self.portada}, {self.usuario}'
 
 
 class album_musica(models.Model):

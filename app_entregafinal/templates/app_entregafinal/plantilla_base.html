@@ -28,7 +28,7 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Enviar mensaje</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'mis-publicaciones' %}">Mis publicaciones</a>
                     {% endif %}
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'about' %}">About</a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -52,7 +52,6 @@
                                         <a class="dropdown-item" href="{% url 'opciones' %}">Opciones</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{% url 'about' %}">About</a>
                                     </div>
                                 </li>
                                 {% else %}

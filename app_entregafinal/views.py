@@ -85,6 +85,10 @@ def mis_publicaciones(request):
     
     return render(request, "app_entregafinal/mis_publicaciones.html", {'peliculas': peliculas,'videojuegos': videojuegos,'albums': albums})
 
+def peliculas(request):
+    peliculas = pelicula.objects.all()
+
+    return render(request, "app_entregafinal/pelicula.html", {'peliculas': peliculas})
 
 class PeliculaListView(LoginRequiredMixin, ListView):
     model = pelicula
@@ -93,7 +97,7 @@ class PeliculaListView(LoginRequiredMixin, ListView):
 
 class PeliculaCreateView(LoginRequiredMixin, CreateView):
     model = pelicula
-    fields = ['nombre', 'genero', 'estreno', 'director']
+    fields = ['nombre', 'genero', 'estreno', 'director', 'portada', 'usuario']
     success_url = reverse_lazy('mis-publicaciones')
 
 

@@ -8,7 +8,8 @@ class formulario_pelicula(forms.Form):
     genero = forms.CharField(max_length=30)
     estreno = forms.DateField()
     director = forms.CharField(max_length=30)
-
+    portada = forms.ImageField()
+    usuario = forms.CharField(max_length=30)
 
 class formulario_musica(forms.Form):
     nombre = forms.CharField(max_length=30)
