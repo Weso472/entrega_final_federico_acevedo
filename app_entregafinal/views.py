@@ -2,7 +2,7 @@ from typing import Dict
 
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.forms import AuthenticationForm
@@ -85,25 +85,33 @@ def mis_publicaciones(request):
     
     return render(request, "app_entregafinal/mis_publicaciones.html", {'peliculas': peliculas,'videojuegos': videojuegos,'albums': albums})
 
+#PELICULAS
+
 def peliculas(request):
     peliculas = pelicula.objects.all()
 
-    return render(request, "app_entregafinal/pelicula.html", {'peliculas': peliculas})
+    return render(request, "app_entregafinal/peliculas.html", {'peliculas': peliculas})
 
-class PeliculaListView(LoginRequiredMixin, ListView):
-    model = pelicula
-    template_name = 'app_entregafinal/pelicula.html'
+
+def peliculas(request):
+    peliculas = pelicula.objects.all()
+
+    return render(request, "app_entregafinal/peliculas.html", {'peliculas': peliculas})
 
 
 class PeliculaCreateView(LoginRequiredMixin, CreateView):
     model = pelicula
-    fields = ['nombre', 'genero', 'estreno', 'director', 'portada', 'usuario']
+    fields = ['nombre', 'genero', 'estreno', 'director', 'descripcion', 'portada']
     success_url = reverse_lazy('mis-publicaciones')
+    
+    def form_valid(self, form):
+        form.instance.usuarioid = self.request.user
+        return super().form_valid(form)
 
 
 class PeliculaUpdateView(LoginRequiredMixin, UpdateView):
     model = pelicula
-    fields = ['nombre', 'genero', 'estreno', 'director']
+    fields = ['nombre', 'genero', 'estreno', 'director', 'descripcion', 'portada']
     success_url = reverse_lazy('mis-publicaciones')
 
 
@@ -112,41 +120,76 @@ class PeliculaDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('mis-publicaciones')
 
 
+class PeliculaDetailView(LoginRequiredMixin, DetailView):
+    model = pelicula
+    template_name = 'app_entregafinal/pelicula_detalle.html'
 
 
-def discos(request):
-      discos = album_musica.objects.all()
-      
-      return render(request, "app_entregafinal/album_musica.html", {'discos': discos})
-
-def crear_disco(request):
-    if request.method == 'POST':
-        formulario = formulario_musica(request.POST)
-        if formulario.is_valid():
-            data = formulario.cleaned_data
-            Disco = album_musica(nombre=data['nombre'], genero=data['genero'], artista=data['artista'], lanzamiento=data['lanzamiento'], discografica=data['discografica'])
-            Disco.save()
-            return render(request, "app_entregafinal/inicio.html", {"exitoso": True})
-    else:  # GET
-        formulario = formulario_pelicula()  # Formulario vacio para construir el html
-    return render(request, "app_entregafinal/formulario_pelicula.html", {"formulario": formulario})
-
-
+#VIDEOJUEGOS
 
 def videojuegos(request):
     videojuegos = videojuego.objects.all()
     
     return render(request, "app_entregafinal/videojuego.html", {'videojuegos': videojuegos})
 
-def crear_videojuego(request):
-    if request.method == 'POST':
-        formulario = formulario_videojuego(request.POST)
-        if formulario.is_valid():
-            data = formulario.cleaned_data
-            Videojuego = videojuego(nombre=data['nombre'], genero=data['genero'], lanzamiento=data['lanzamiento'], compañia=data['compañia'])
-            Videojuego.save()
-            return render(request, "app_entregafinal/inicio.html", {"exitoso": True})
-    else:  # GET
-        formulario = formulario_videojuego()  # Formulario vacio para construir el html
-    return render(request, "app_entregafinal/formulario_videojuego.html", {"formulario": formulario})
+
+class VideojuegoCreateView(LoginRequiredMixin, CreateView):
+    model = videojuego
+    fields = ['nombre', 'genero', 'lanzamiento', 'compañia', 'descripcion', 'portada']
+    success_url = reverse_lazy('mis-publicaciones')
+    
+    def form_valid(self, form):
+        form.instance.usuarioid = self.request.user
+        return super().form_valid(form)
+
+
+class VideojuegoUpdateView(LoginRequiredMixin, UpdateView):
+    model = videojuego
+    fields = ['nombre', 'genero', 'lanzamiento', 'compañia', 'descripcion', 'portada']
+    success_url = reverse_lazy('mis-publicaciones')
+
+
+class VideojuegoDeleteView(LoginRequiredMixin, DeleteView):
+    model = videojuego
+    success_url = reverse_lazy('mis-publicaciones')
+
+
+class VideojuegoDetailView(LoginRequiredMixin, DetailView):
+    model = videojuego
+    template_name = 'app_entregafinal/videojuego_detalle.html'
+
+
+
+#MUSICA
+
+def discos(request):
+      discos = album_musica.objects.all()
+      
+      return render(request, "app_entregafinal/album_musica.html", {'discos': discos})
+
+
+class DiscoCreateView(LoginRequiredMixin, CreateView):
+    model = album_musica
+    fields = ['nombre', 'genero', 'artista', 'lanzamiento', 'discografica', 'descripcion', 'portada']
+    success_url = reverse_lazy('mis-publicaciones')
+
+    def form_valid(self, form):
+        form.instance.usuarioid = self.request.user
+        return super().form_valid(form)
+
+
+class DiscoUpdateView(LoginRequiredMixin, UpdateView):
+    model = album_musica
+    fields = ['nombre', 'genero', 'artista', 'lanzamiento', 'discografica', 'descripcion', 'portada']
+    success_url = reverse_lazy('mis-publicaciones')
+
+
+class DiscoDeleteView(LoginRequiredMixin, DeleteView):
+    model = album_musica
+    success_url = reverse_lazy('mis-publicaciones')
+
+
+class DiscoDetailView(LoginRequiredMixin, DetailView):
+    model = album_musica
+    template_name = 'app_entregafinal/disco_detalle.html'
 

@@ -6,21 +6,9 @@
 <!-- Page content-->
 <div class="container-fluid">
     <h1 class="mt-4">Mis publicaciones</h1>
-    <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-    <p>
-        Make sure to keep all page content within the
-        <code>#page-content-wrapper</code>
-        . The top navbar is optional, and just for demonstration. Just create an element with the
-        <code>#sidebarToggle</code>
-        ID which will toggle the menu when clicked.
-    </p>
+    <p>Aquí podrás ver tus publicaciones listadas y podrás eliminarlas o editarlas.</p>
 </div>
 
-<!-- Falta agregar que diga "borrado con exito"
-{% if borrado %}
-<div class="eliminado">Pelicula borrada exitosamente</div>
-{% endif %}
--->
         
 <div class="album py-5">
     <div class="container">
@@ -28,22 +16,22 @@
     
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for pelicula in peliculas %}
-        {% if pelicula.usuario == user.username %}
+        {% if pelicula.usuarioid == user %}
         <div class="col">
           <div height="100%" width="100%" class="card shadow-sm">
             <div class="container-image">
               {% if pelicula.portada %}
-            <img src ="{{pelicula.portada.url}}" class="img-fluid">
-            {% else %}
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            {% endif %}
+              <img src ="{{pelicula.portada.url}}" class="img-fluid">
+              {% else %}
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+              {% endif %}
             </div>
             <div class="card-body">
-              <b>Nombre:</b> {{pelicula.nombre}}
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <b>{{pelicula.nombre}}</b>
+              <p class="card-text">{{pelicula.descripcion}}.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'detalle-pelicula' pelicula.id %}">Ver</a>
                   <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-pelicula' pelicula.id %}">Editar</a>
                   <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-pelicula' pelicula.id %}">Eliminar</a>
                 </div>
@@ -58,58 +46,74 @@
 </div>
 
 <div class="album py-5">
-    <div class="container">
-    <a type="button" class="btn btn-sm btn-outline-secondary" href="">Nueva publicación</a>
-    
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for videojuego in videojuegos %}
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
+  <div class="container">
+  <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'nuevo-videojuego' %}">Nuevo videojuego</a>
+  
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for videojuego in videojuegos %}
+      {% if videojuego.usuarioid == user %}
+      <div class="col">
+        <div height="100%" width="100%" class="card shadow-sm">
+          <div class="container-image">
+            {% if videojuego.portada %}
+          <img src ="{{videojuego.portada.url}}" class="img-fluid">
+          {% else %}
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+          {% endif %}
+          </div>
+          <div class="card-body">
+            <b>{{videojuego.nombre}}</b>
+            <p class="card-text">{{videojuego.descripcion}}.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'detalle-videojuego' videojuego.id %}">Ver</button>
+                <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-videojuego' videojuego.id %}">Editar</a>
+                <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-videojuego' videojuego.id %}">Eliminar</a>
               </div>
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
-    </div>    
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>    
 </div>
 
 <div class="album py-5">
-    <div class="container">
-    <a type="button" class="btn btn-sm btn-outline-secondary" href="">Nueva publicación</a>
-    
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for album in albums %}
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
+  <div class="container">
+  <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'nuevo-disco' %}">Nuevo disco</a>
+  
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for disco in discos %}
+      {% if disco.usuarioid == user %}
+      <div class="col">
+        <div height="100%" width="100%" class="card shadow-sm">
+          <div class="container-image">
+            {% if disco.portada %}
+          <img src ="{{disco.portada.url}}" class="img-fluid">
+          {% else %}
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+          {% endif %}
+          </div>
+          <div class="card-body">
+            <b>{{disco.nombre}}</b>
+            <p class="card-text">{{disco.descripcion}}.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'detalle-disco' disco.id %}">Ver</button>
+                <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'editar-disco' disco.id %}">Editar</a>
+                <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'eliminar-disco' disco.id %}">Eliminar</a>
               </div>
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
-    </div>    
-</div>    
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>    
+</div>
     
 
 

@@ -25,7 +25,6 @@
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'musica' %}">Música</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'videojuegos' %}">Videojuegos</a>
                     {% if user.is_authenticated %}
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Enviar mensaje</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'mis-publicaciones' %}">Mis publicaciones</a>
                     {% endif %}
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'about' %}">About</a>
@@ -48,8 +47,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#!">Perfil</a>
-                                        <a class="dropdown-item" href="{% url 'opciones' %}">Opciones</a>
+                                        <a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
                                         <div class="dropdown-divider"></div>
                                     </div>

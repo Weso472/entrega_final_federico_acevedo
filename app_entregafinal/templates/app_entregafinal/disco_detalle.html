@@ -1,0 +1,25 @@
+{% extends "app_entregafinal/plantilla_base.html" %}
+
+{% block style_block %}
+
+<section>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-lg-6">
+                <h1 class="mt-5">{{album_musica.nombre}}</h1><br>
+                {% if album_musica.portada %}
+                <img src ="{{album_musica.portada.url}}" class="img-fluid"><br>
+                {% endif %}
+                <br>
+                <b>Género:</b> {{album_musica.genero}}<br>
+                <b>Artista:</b> {{album_musica.artista}}<br>
+                <b>Fecha de lanzamiento:</b> {{album_musica.lanzamiento}}<br>
+                <b>Discografica:</b> {{album_musica.discografica}}<br>
+                <b>Descripcion:</b> {{album_musica.descripcion}}<br>
+                <b>Publicada por:</b> {{album_musica.usuarioid}}<br>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock style_block %}
